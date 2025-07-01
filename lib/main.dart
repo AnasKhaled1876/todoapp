@@ -3,7 +3,10 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:initiation_task/config/themes/light.dart';
+import 'package:initiation_task/domain/entities/todo.dart'; // Import Todo for Isar schema
 import 'package:initiation_task/locator.dart';
+import 'package:isar/isar.dart'; // Import Isar
+import 'package:path_provider/path_provider.dart'; // Import path_provider
 import 'presentation/screens/home.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +20,15 @@ void main() async {
 
   await EasyLocalization.ensureInitialized();
 
-  await setupServiceLocators();
+  // Initialize Isar
+  final dir = await getApplicationDocumentsDirectory();
+  final isar = await Isar.open(
+    [TodoSchema], // Add TodoSchema
+    directory: dir.path,
+  );
+
+  // Pass Isar instance to the locator setup
+  await setupServiceLocators(isar: isar); // Modified to pass Isar
 
   List<Locale> supportedLocales = [Locale('en'), Locale('ar')];
 

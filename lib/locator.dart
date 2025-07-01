@@ -1,45 +1,38 @@
 // locator.dart
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:initiation_task/data/datasources/todo.dart';
+import 'package:isar/isar.dart'; // Import Isar
+import 'package:initiation_task/data/datasources/isar_todo_datasource.dart'; // Import IsarTodoDataSource
 import 'package:initiation_task/data/repositories_impl/todo.dart';
-import 'package:initiation_task/domain/entities/todo.dart';
-import 'package:initiation_task/domain/repositories/todo.dart';
+// No longer need Hive imports for Todo entity or HiveTodoDataSource if fully migrated
+// import 'package:initiation_task/domain/entities/todo.dart';
+import 'package:initiation_task/domain/repositories/todo.dart'; // Ensure this has TodoDataSource and TodoRepository
 
 final locator = GetIt.instance;
 
-Future<void> setupServiceLocators() async {
-  // Initialize Hive
-  await Hive.initFlutter();
-  if (!Hive.isAdapterRegistered(0)) {
-    Hive.registerAdapter(TodoAdapter());
-  }
+// Modified to accept Isar instance
+Future<void> setupServiceLocators({required Isar isar}) async {
+  // Register Isar instance
+  locator.registerSingleton<Isar>(isar);
 
-  // Register the Hive box as a singleton
-  final todoBox = await Hive.openBox<Todo>('todos');
-  locator.registerSingleton<Box<Todo>>(todoBox);
-
-  // Register the data source
-  locator.registerLazySingleton<HiveTodoDataSource>(
-    () => HiveTodoDataSource(locator<Box<Todo>>()),
+  // Register the Isar data source
+  // It now depends on the TodoDataSource interface
+  locator.registerLazySingleton<TodoDataSource>(
+    () => IsarTodoDataSource(locator<Isar>()),
   );
 
-  // Register the repository
+  // Register the repository, ensuring it depends on the TodoDataSource interface
   locator.registerLazySingleton<TodoRepository>(
-    () => TodoRepositoryImpl(locator<HiveTodoDataSource>()),
+    () => TodoRepositoryImpl(locator<TodoDataSource>()),
   );
 
-  // Add this if you need to close the box when the app is closing
-  locator.registerSingleton(AppLifecycleObserver());
+  // AppLifecycleObserver for Isar can be added if needed, e.g., for closing Isar.
+  // However, Isar typically manages its lifecycle well.
+  // If you had specific logic for Hive.close(), consider if Isar needs similar handling.
+  // For now, removing the Hive-specific AppLifecycleObserver.
 }
 
-// Optional: Close Hive boxes when app is closing
-class AppLifecycleObserver with WidgetsBindingObserver {
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.detached) {
-      Hive.close();
-    }
-  }
-}
+// The Hive-specific AppLifecycleObserver is removed.
+// If you need to perform actions on app lifecycle changes for Isar,
+// you can create a new observer or integrate it here.
+// For example, Isar doesn't strictly require manual closing on app exit like Hive boxes sometimes do for flushing,
+// but you might have other cleanup tasks.

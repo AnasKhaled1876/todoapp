@@ -17,15 +17,16 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
+  # hive: ^2.2.3 # Removed Hive
+  # hive_flutter: ^1.1.0 # Removed Hive Flutter
   animations: ^2.0.11
   flutter_riverpod: ^2.6.1
   easy_localization: ^3.0.7+1
   get_it: ^8.0.3
+  path_provider: ^2.0.0 # Add path_provider, adjust version as needed
   
-  # isar: *isar_version
-  # isar_flutter_libs: *isar_version
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
 
   mocktail: ^1.0.3
 
@@ -37,7 +38,8 @@ dev_dependencies:
 
   flutter_lints: ^5.0.0
   flutter_launcher_icons: ^0.14.4
-  hive_generator: ^2.0.1
+  # hive_generator: ^2.0.1 # Removed Hive generator
+  isar_generator: ^3.1.0+1
   build_runner: ^2.4.15
 
 

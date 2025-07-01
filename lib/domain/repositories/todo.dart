@@ -17,11 +17,22 @@ abstract class TodoRepository {
 
   Future<void> addTodo(Todo todo);
 
-  Future<void> toggleTodo(int key);
+  Future<void> toggleTodo(int id); // Changed key to id
 
-  Future<void> deleteTodo(int key);
+  Future<void> deleteTodo(int id); // Changed key to id
 
   Future<List<Todo>> getTodos();
 
-  Future<void> updateTodo(int key, Todo todo);
+  Future<void> updateTodo(Todo todo); // Changed signature to take Todo
+}
+
+
+// Define the TodoDataSource interface
+abstract class TodoDataSource {
+  Future<void> addTodo(Todo todo);
+  Future<Todo?> getTodoById(int id); // For Isar, getting by Id is common
+  Future<List<Todo>> getTodos();
+  Future<void> updateTodo(Todo todo);
+  Future<void> deleteTodo(int id);
+  Future<void> clearAll(); // Added from HiveDataSource
 }
