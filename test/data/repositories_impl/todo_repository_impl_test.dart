@@ -16,7 +16,9 @@ void main() {
 
   setUp(() {
     mockTodoDataSource = MockTodoDataSource();
-    todoRepositoryImpl = TodoRepositoryImpl(mockTodoDataSource); // Inject the new mock
+    todoRepositoryImpl = TodoRepositoryImpl(
+      mockTodoDataSource,
+    ); // Inject the new mock
   });
 
   group('TodoRepositoryImpl', () {
@@ -36,35 +38,60 @@ void main() {
       verify(() => mockTodoDataSource.deleteTodo(tTodo.id)).called(1); // Use id
     });
 
-    test('getTodos should call getTodos on the data source and return a list of todos', () async {
-      when(() => mockTodoDataSource.getTodos()).thenAnswer((_) async => tTodoList);
-      final result = await todoRepositoryImpl.getTodos();
-      expect(result, tTodoList);
-      verify(() => mockTodoDataSource.getTodos()).called(1);
-    });
+    test(
+      'getTodos should call getTodos on the data source and return a list of todos',
+      () async {
+        when(
+          () => mockTodoDataSource.getTodos(),
+        ).thenAnswer((_) async => tTodoList);
+        final result = await todoRepositoryImpl.getTodos();
+        expect(result, tTodoList);
+        verify(() => mockTodoDataSource.getTodos()).called(1);
+      },
+    );
 
-    test('toggleTodo should get todo, toggle isDone, and update on the data source', () async {
-      // Arrange
-      final originalTodo = Todo(title: 'Test', isDone: false)..id = 1;
-      final toggledTodo = Todo(title: 'Test', isDone: true)..id = 1;
+    test(
+      'toggleTodo should get todo, toggle isDone, and update on the data source',
+      () async {
+        // Arrange
+        final originalTodo = Todo(title: 'Test', isDone: false)..id = 1;
 
-      // Mock getTodoById to return the original todo
-      when(() => mockTodoDataSource.getTodoById(originalTodo.id)).thenAnswer((_) async => originalTodo);
-      // Mock updateTodo to complete successfully
-      when(() => mockTodoDataSource.updateTodo(any(that: predicate<Todo>((todo) => todo.id == originalTodo.id && todo.isDone == !originalTodo.isDone))))
-          .thenAnswer((_) async {});
+        // Mock getTodoById to return the original todo
+        when(
+          () => mockTodoDataSource.getTodoById(originalTodo.id),
+        ).thenAnswer((_) async => originalTodo);
+        // Mock updateTodo to complete successfully
+        when(
+          () => mockTodoDataSource.updateTodo(
+            any(
+              that: predicate<Todo>(
+                (todo) =>
+                    todo.id == originalTodo.id &&
+                    todo.isDone == !originalTodo.isDone,
+              ),
+            ),
+          ),
+        ).thenAnswer((_) async {});
 
-      // Act
-      await todoRepositoryImpl.toggleTodo(originalTodo.id);
+        // Act
+        await todoRepositoryImpl.toggleTodo(originalTodo.id);
 
-      // Assert
-      verify(() => mockTodoDataSource.getTodoById(originalTodo.id)).called(1);
-      // Verify that updateTodo was called with the toggled state.
-      // We use a predicate to check the properties of the Todo passed to updateTodo.
-      verify(() => mockTodoDataSource.updateTodo(any(that: predicate<Todo>((todo) {
-        return todo.id == originalTodo.id && todo.isDone == !originalTodo.isDone;
-      })))).called(1);
-    });
+        // Assert
+        verify(() => mockTodoDataSource.getTodoById(originalTodo.id)).called(1);
+        // Verify that updateTodo was called with the toggled state.
+        // We use a predicate to check the properties of the Todo passed to updateTodo.
+        verify(
+          () => mockTodoDataSource.updateTodo(
+            any(
+              that: predicate<Todo>((todo) {
+                return todo.id == originalTodo.id &&
+                    todo.isDone == !originalTodo.isDone;
+              }),
+            ),
+          ),
+        ).called(1);
+      },
+    );
 
     test('updateTodo should call updateTodo on the data source', () async {
       // Arrange

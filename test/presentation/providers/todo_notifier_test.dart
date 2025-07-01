@@ -109,7 +109,7 @@ void main() {
       // notifier.toggleTodo(toggledTodo);
 
       // If toggleTodo in notifier is `toggleTodo(int id)`:
-      notifier.toggleTodo(tTodo.id);
+      notifier.toggleTodo(id: tTodo.id, todo: tTodo);
 
 
       // Assert
@@ -139,7 +139,7 @@ void main() {
 
       // Act
       // Assuming notifier.updateTodo is refactored to take the updated Todo object
-      notifier.updateTodo(tUpdatedTodo);
+      notifier.updateTodo(id: tUpdatedTodo.id, todo: tUpdatedTodo);
 
       // Assert
       // This depends on how the notifier updates its state.

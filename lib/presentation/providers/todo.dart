@@ -24,26 +24,26 @@ class TodoNotifier extends StateNotifier<List<Todo>> {
   }
 
   void removeTodo(Todo todo) {
-    state = state.where((element) => element.key != todo.key).toList();
-    _todoRepository.deleteTodo(todo.key);
+    state = state.where((element) => element.id != todo.id).toList();
+    _todoRepository.deleteTodo(todo.id);
   }
 
-  void toggleTodo({required int key, required Todo todo}) {
-    final selectedTodo = state.firstWhere((element) => element.key == key);
+  void toggleTodo({required int id, required Todo todo}) {
+    final selectedTodo = state.firstWhere((element) => element.id == id);
     selectedTodo.isDone = todo.isDone;
     state = state
-        .map((element) => element.key == key ? selectedTodo : element)
+        .map((element) => element.id == id ? selectedTodo : element)
         .toList();
-    _todoRepository.toggleTodo(key);
+    _todoRepository.toggleTodo(id);
   }
 
-  void updateTodo({required int key, required Todo todo}) {
-    final selectedTodo = state.firstWhere((element) => element.key == key);
+  void updateTodo({required int id, required Todo todo}) {
+    final selectedTodo = state.firstWhere((element) => element.id == id);
     selectedTodo.title = todo.title;
     state = state
-        .map((element) => element.key == key ? selectedTodo : element)
+        .map((element) => element.id == id ? selectedTodo : element)
         .toList();
-    _todoRepository.updateTodo(key, selectedTodo);
+    _todoRepository.updateTodo(selectedTodo);
   }
 }
 

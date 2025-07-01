@@ -29,7 +29,7 @@ class TodoListItem extends ConsumerWidget {
             ),
             alignment: Alignment(0.9, 0),
           ),
-          key: Key(todo.key.toString()),
+          key: Key(todo.id.toString()),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12.0),
             child: Row(
@@ -42,7 +42,7 @@ class TodoListItem extends ConsumerWidget {
                     ref
                         .read(todosProvider.notifier)
                         .toggleTodo(
-                          key: todo.key,
+                          id: todo.id,
                           todo: todo.copyWith(isDone: value!),
                         );
                   },

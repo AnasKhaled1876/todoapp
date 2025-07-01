@@ -44,7 +44,7 @@ class _EditTodoScreenState extends ConsumerState<EditTodoScreen> {
 
     ref
         .read(todosProvider.notifier)
-        .updateTodo(key: widget.todo.key!, todo: updatedTodo);
+        .updateTodo(id: widget.todo.id, todo: updatedTodo);
 
     if (mounted) {
       Navigator.of(context).pop();
@@ -92,7 +92,7 @@ class _EditTodoScreenState extends ConsumerState<EditTodoScreen> {
                   ref
                       .read(todosProvider.notifier)
                       .toggleTodo(
-                        key: widget.todo.key!,
+                        id: widget.todo.id,
                         todo: widget.todo.copyWith(isDone: value),
                       );
                 },
