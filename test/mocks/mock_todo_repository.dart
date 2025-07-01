@@ -9,5 +9,5 @@ class MockTodoRepository extends Mock implements TodoRepository {}
 // for methods returning Future<Todo> or involving complex types.
 // This is generally needed if you have methods that are not void or simple primitives.
 void registerFallbackValues() {
-  registerFallbackValue(Todo(key: 0, title: '', createdAt: DateTime.now()));
+  registerFallbackValue(Todo(title: ''));
 }

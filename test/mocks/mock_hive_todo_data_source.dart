@@ -9,5 +9,5 @@ class MockHiveTodoDataSource extends Mock implements HiveTodoDataSource {}
 // if they are used as arguments to mocked methods or as return types
 // for methods that might not be explicitly stubbed in all tests.
 void registerHiveFallbackValues() {
-  registerFallbackValue(Todo(key: 0, title: '', createdAt: DateTime.now()));
+  registerFallbackValue(Todo(title: ''));
 }

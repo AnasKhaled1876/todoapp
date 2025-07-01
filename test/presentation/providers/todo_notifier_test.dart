@@ -9,7 +9,7 @@ import '../../mocks/mock_todo_repository.dart'; // Updated import
 void main() {
   // Register fallback values once for all tests
   setUpAll(() {
-    registerFallbackValue(Todo(key: 0, title: '', createdAt: DateTime.now(), isDone: false));
+    registerFallbackValue(Todo(title: '', isDone: false));
   });
 
   late MockTodoRepository mockTodoRepository;
@@ -32,8 +32,8 @@ void main() {
   });
 
   group('TodoNotifier', () {
-    final tTodo1 = Todo(key: 1, title: 'Test Todo 1', createdAt: DateTime.now());
-    final tTodo2 = Todo(key: 2, title: 'Test Todo 2', createdAt: DateTime.now());
+    final tTodo1 = Todo(title: 'Test Todo 1', isDone: false);
+    final tTodo2 = Todo(title: 'Test Todo 2', isDone: false);
 
     test('initial state is empty if repository returns empty list', () async {
       // Arrange
@@ -92,7 +92,7 @@ void main() {
     test('toggleTodo toggles todo isDone status and calls repository', () async {
       // Arrange
       final notifier = container.read(todosProvider.notifier);
-      final tTodo = Todo(key: 1, title: 'Test', createdAt: DateTime.now(), isDone: false);
+      final tTodo = Todo(title: 'Test', isDone: false);
       notifier.state = [tTodo];
       when(() => mockTodoRepository.toggleTodo(any())).thenAnswer((_) async => {});
 
@@ -109,7 +109,7 @@ void main() {
     test('updateTodo updates todo title and calls repository', () async {
       // Arrange
       final notifier = container.read(todosProvider.notifier);
-      final tInitialTodo = Todo(key: 1, title: 'Initial', createdAt: DateTime.now());
+      final tInitialTodo = Todo(title: 'Initial', isDone: false);
       notifier.state = [tInitialTodo];
 
       final tUpdatedTodo = tInitialTodo.copyWith(title: 'Updated');

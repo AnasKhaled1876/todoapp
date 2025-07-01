@@ -10,7 +10,7 @@ void main() {
   // Register fallback values once for all tests in this file
   setUpAll(() {
     // Assuming Todo is a complex type used in method arguments for HiveTodoDataSource
-    registerFallbackValue(Todo(key: 0, title: '', createdAt: DateTime.now()));
+    registerFallbackValue(Todo(title: '', isDone: false));
   });
 
   late MockHiveTodoDataSource mockHiveTodoDataSource;
@@ -22,7 +22,7 @@ void main() {
   });
 
   group('TodoRepositoryImpl', () {
-    final tTodo = Todo(key: 1, title: 'Test Todo', createdAt: DateTime.now());
+    final tTodo = Todo(title: 'Test Todo', isDone: false);
     final tTodoList = [tTodo];
 
     test('addTodo should call addTodo on the data source', () async {
