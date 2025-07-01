@@ -2,9 +2,11 @@
 import 'package:initiation_task/domain/repositories/todo.dart';
 import 'package:initiation_task/domain/entities/todo.dart';
 
+import '../datasources/local/isar_todo_datasource.dart';
+
 class TodoRepositoryImpl implements TodoRepository {
   // Depend on the TodoDataSource abstraction
-  final TodoDataSource _todoDataSource;
+  final IsarTodoDataSource _todoDataSource;
 
   TodoRepositoryImpl(this._todoDataSource);
 
@@ -14,7 +16,8 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<void> deleteTodo(int id) { // Changed from key to id
+  Future<void> deleteTodo(int id) {
+    // Changed from key to id
     return _todoDataSource.deleteTodo(id);
   }
 
@@ -24,18 +27,18 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<void> toggleTodo(int id) async { // Changed from key to id
-    // The IsarDataSource doesn't have a direct toggleTodo.
-    // We need to get the todo, toggle its state, and then update it.
-    final todo = await _todoDataSource.getTodoById(id);
-    if (todo != null) {
-      final updatedTodo = todo.copyWith(isDone: !todo.isDone);
-      await _todoDataSource.updateTodo(updatedTodo);
-    }
+  Future<void> updateTodo(Todo todo) {
+    // Changed signature
+    return _todoDataSource.updateTodo(todo);
   }
 
   @override
-  Future<void> updateTodo(Todo todo) { // Changed signature
-    return _todoDataSource.updateTodo(todo);
+  Future<void> clearAll() {
+    return _todoDataSource.clearAll();
+  }
+
+  @override
+  Future<Todo?> getTodoById(int id) {
+    return _todoDataSource.getTodoById(id);
   }
 }

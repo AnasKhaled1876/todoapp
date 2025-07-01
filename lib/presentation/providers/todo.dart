@@ -34,7 +34,7 @@ class TodoNotifier extends StateNotifier<List<Todo>> {
     state = state
         .map((element) => element.id == id ? selectedTodo : element)
         .toList();
-    _todoRepository.toggleTodo(id);
+    _todoRepository.updateTodo(selectedTodo);
   }
 
   void updateTodo({required int id, required Todo todo}) {
