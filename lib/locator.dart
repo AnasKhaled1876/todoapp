@@ -1,4 +1,5 @@
 // locator.dart
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:initiation_task/data/datasources/todo.dart';
@@ -30,16 +31,15 @@ Future<void> setupServiceLocators() async {
   );
 
   // Add this if you need to close the box when the app is closing
-  // (e.g., in main's dispose)
-  // getIt.registerSingleton(AppLifecycleObserver());
+  locator.registerSingleton(AppLifecycleObserver());
 }
 
 // Optional: Close Hive boxes when app is closing
-// class AppLifecycleObserver with WidgetsBindingObserver {
-//   @override
-//   void didChangeAppLifecycleState(AppLifecycleState state) {
-//     if (state == AppLifecycleState.detached) {
-//       Hive.close();
-//     }
-//   }
-// }
+class AppLifecycleObserver with WidgetsBindingObserver {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.detached) {
+      Hive.close();
+    }
+  }
+}

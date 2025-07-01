@@ -80,6 +80,10 @@ class _EditTodoScreenState extends ConsumerState<EditTodoScreen> {
               child: SwitchListTile(
                 title: const Text('Completed'),
                 value: _isDone,
+                activeTrackColor: Theme.of(context).primaryColor,
+                inactiveTrackColor: Theme.of(
+                  context,
+                ).colorScheme.secondary.withValues(alpha: 0.2),
                 onChanged: (value) {
                   setState(() {
                     _isDone = value;
