@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:initiation_task/presentation/providers/todo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/entities/todo.dart';
@@ -12,12 +13,12 @@ class DeleteDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.read(todosProvider.notifier);
     return AlertDialog(
-      title: const Text('Delete Todo'),
-      content: const Text('Are you sure you want to delete this todo?'),
+      title: Text('Delete Todo'.tr()),
+      content: Text('Are you sure you want to delete this todo?'.tr()),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: Text('Cancel'.tr(), style: TextStyle(color: Colors.grey)),
         ),
         TextButton(
           onPressed: () {
@@ -25,9 +26,9 @@ class DeleteDialog extends ConsumerWidget {
             Navigator.of(context).pop();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: const Text('Todo deleted'),
+                content: Text('Todo deleted'.tr()),
                 action: SnackBarAction(
-                  label: 'UNDO',
+                  label: 'UNDO'.tr(),
                   onPressed: () {
                     notifier.addTodo(todo);
                   },
@@ -36,7 +37,7 @@ class DeleteDialog extends ConsumerWidget {
             );
           },
           style: TextButton.styleFrom(foregroundColor: Colors.red),
-          child: const Text('Delete'),
+          child: Text('Delete'.tr()),
         ),
       ],
     );

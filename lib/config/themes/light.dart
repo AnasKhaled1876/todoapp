@@ -10,6 +10,13 @@ final ThemeData lightTheme = ThemeData(
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: Color(0xFFFF7700),
   ),
+  inputDecorationTheme: const InputDecorationTheme(
+    hintStyle: TextStyle(
+      color: Colors.grey,
+      fontSize: 16,
+      fontWeight: FontWeight.w300,
+    ),
+  ),
   appBarTheme: const AppBarTheme(
     backgroundColor: Color(0xFFFF7700),
     foregroundColor: Colors.white,

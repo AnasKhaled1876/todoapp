@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:initiation_task/domain/entities/todo.dart';
@@ -34,7 +35,7 @@ class _EditTodoScreenState extends ConsumerState<EditTodoScreen> {
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('Title cannot be empty')));
+        ).showSnackBar(SnackBar(content: Text('Title cannot be empty'.tr())));
       }
       return;
     }
@@ -54,7 +55,7 @@ class _EditTodoScreenState extends ConsumerState<EditTodoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Todo'),
+        title: Text('Edit Todo'.tr()),
         actions: [
           IconButton(icon: const Icon(Icons.save), onPressed: _saveChanges),
         ],
@@ -66,8 +67,8 @@ class _EditTodoScreenState extends ConsumerState<EditTodoScreen> {
           children: [
             TextField(
               controller: _titleController,
-              decoration: const InputDecoration(
-                labelText: 'Title',
+              decoration: InputDecoration(
+                labelText: 'Title'.tr(),
                 border: OutlineInputBorder(),
               ),
               maxLines: 2,
@@ -78,7 +79,7 @@ class _EditTodoScreenState extends ConsumerState<EditTodoScreen> {
             const SizedBox(height: 20),
             Card(
               child: SwitchListTile(
-                title: const Text('Completed'),
+                title: Text('Completed'.tr()),
                 value: _isDone,
                 activeTrackColor: Theme.of(context).primaryColor,
                 inactiveTrackColor: Theme.of(

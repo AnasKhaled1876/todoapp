@@ -1,45 +1,61 @@
-import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../domain/entities/todo.dart';
+import 'package:flutter/material.dart';
 import '../../providers/todo.dart';
 
-class AddTodoDialog extends StatefulWidget {
+class AddTodoDialog extends ConsumerStatefulWidget {
   const AddTodoDialog({super.key});
 
   @override
-  State<AddTodoDialog> createState() => _AddTodoDialogState();
+  ConsumerState<AddTodoDialog> createState() => _AddTodoDialogState();
 }
 
-class _AddTodoDialogState extends State<AddTodoDialog> {
+class _AddTodoDialogState extends ConsumerState<AddTodoDialog> {
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final notifier = ref.read(todosProvider.notifier);
+
     return AlertDialog(
-      title: const Text('Add Todo'),
+      title: Text('Add Todo'.tr()),
       content: TextField(
+        autofocus: true,
+        onEditingComplete: () {
+          if (_controller.text.trim().isEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(
+               SnackBar(content: Text('Title cannot be empty'.tr())),
+            );
+            return;
+          }
+          notifier.addTodo(Todo(title: _controller.text));
+          notifier.loadTodos();
+          Navigator.pop(context);
+        },
         controller: _controller,
-        decoration: const InputDecoration(hintText: 'Todo title'),
+        decoration: InputDecoration(hintText: 'Todo title'.tr()),
       ),
       actions: [
         TextButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('Cancel'),
+          child: Text('Cancel'.tr(), style: TextStyle(color: Colors.grey)),
         ),
-        Consumer(
-          builder: (context, ref, child) {
-            final notifier = ref.read(todosProvider.notifier);
-            return TextButton(
-              onPressed: () {
-                notifier.addTodo(Todo(title: _controller.text));
-                notifier.loadTodos();
-                Navigator.pop(context);
-              },
-              child: const Text('Add'),
-            );
+        TextButton(
+          onPressed: () {
+            if (_controller.text.trim().isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                 SnackBar(content: Text('Title cannot be empty'.tr())),
+              );
+              return;
+            }
+
+            notifier.addTodo(Todo(title: _controller.text));
+            notifier.loadTodos();
+            Navigator.pop(context);
           },
+          child: Text('Add'.tr()),
         ),
       ],
     );

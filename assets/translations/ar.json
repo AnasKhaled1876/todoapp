@@ -1,0 +1,19 @@
+{
+    "Title cannot be empty": "العنوان لا يمكن أن يكون فارغًا",
+    "Edit Todo": "تعديل المهمة",
+    "Title": "العنوان",
+    "Completed": "تم الإنجاز",
+    "Todos": "المهام",
+    "Add Todo": "إضافة مهمة",
+    "Todo title": "عنوان المهمة",
+    "Cancel": "إلغاء",
+    "Add": "إضافة",
+    "Delete Todo": "حذف المهمة",
+    "Are you sure you want to delete this todo?": "هل أنت متأكد أنك تريد حذف هذه المهمة؟",
+    "Todo deleted": "تم حذف المهمة",
+    "UNDO": "تراجع",
+    "Delete": "حذف",
+    "No Tasks Yet": "لا توجد مهام بعد",
+    "You don't have any tasks right now.Tap the + button to add a new task!": "ليس لديك أي مهام حاليًا. اضغط على زر + لإضافة مهمة جديدة!",
+    "Add Your First Task": "أضف أول مهمة لك"
+}

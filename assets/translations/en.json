@@ -1,0 +1,19 @@
+{
+    "Title cannot be empty": "Title cannot be empty",
+    "Edit Todo": "Edit Todo",
+    "Title": "Title",
+    "Completed": "Completed",
+    "Todos": "Todos",
+    "Add Todo": "Add Todo",
+    "Todo title": "Todo title",
+    "Cancel": "Cancel",
+    "Add": "Add",
+    "Delete Todo": "Delete Todo",
+    "Are you sure you want to delete this todo?": "Are you sure you want to delete this todo?",
+    "Todo deleted": "Todo deleted",
+    "UNDO": "UNDO",
+    "Delete": "Delete",
+    "No Tasks Yet": "No Tasks Yet",
+    "You don't have any tasks right now.Tap the + button to add a new task!": "You don't have any tasks right now.Tap the + button to add a new task!",
+    "Add Your First Task": "Add Your First Task"
+}

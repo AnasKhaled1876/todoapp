@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'dialogs/add.dart';
@@ -19,7 +20,7 @@ class EmptyListWidget extends StatelessWidget {
           const SizedBox(height: 24),
           // Title
           Text(
-            'No Tasks Yet',
+            'No Tasks Yet'.tr(),
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.grey[600],
@@ -30,7 +31,7 @@ class EmptyListWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 48.0),
             child: Text(
-              'You don\'t have any tasks right now.\nTap the + button to add a new task!',
+              'You don\'t have any tasks right now.\nTap the + button to add a new task!'.tr(),
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.grey[500], fontSize: 16),
             ),
@@ -46,7 +47,7 @@ class EmptyListWidget extends StatelessWidget {
               );
             },
             icon: const Icon(Icons.add),
-            label: const Text('Add Your First Task'),
+            label: Text('Add Your First Task'.tr()),
             style: FilledButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             ),
