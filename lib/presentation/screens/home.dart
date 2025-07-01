@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:initiation_task/presentation/screens/edit_title.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../widgets/dialogs/delete.dart';
+import 'package:flutter/material.dart';
 import '../widgets/dialogs/add.dart';
 import '../providers/todo.dart';
 
@@ -19,11 +19,12 @@ class HomeScreen extends ConsumerWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Illustration
                     Icon(
                       Icons.check_circle_outline,
                       size: 100,
-                      color: Theme.of(context).primaryColor.withOpacity(0.2),
+                      color: Theme.of(
+                        context,
+                      ).primaryColor.withValues(alpha: 0.2),
                     ),
                     const SizedBox(height: 24),
                     // Title
@@ -148,12 +149,17 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(context: context, builder: (context) => AddTodoDialog());
-        },
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: todos.isEmpty
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AddTodoDialog(),
+                );
+              },
+              child: const Icon(Icons.add),
+            ),
     );
   }
 }
