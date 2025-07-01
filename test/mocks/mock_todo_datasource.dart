@@ -1,4 +1,4 @@
-import 'package:initiation_task/domain/repositories/todo.dart'; // Assuming TodoDataSource is here
+import 'package:initiation_task/data/datasources/local/isar_todo_datasource.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockTodoDataSource extends Mock implements TodoDataSource {}
+class MockTodoDataSource extends Mock implements IsarTodoDataSource {}

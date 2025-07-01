@@ -74,7 +74,7 @@ void main() {
         ).thenAnswer((_) async {});
 
         // Act
-        await todoRepositoryImpl.toggleTodo(originalTodo.id);
+        await todoRepositoryImpl.updateTodo(originalTodo);
 
         // Assert
         verify(() => mockTodoDataSource.getTodoById(originalTodo.id)).called(1);

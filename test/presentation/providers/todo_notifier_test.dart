@@ -51,8 +51,12 @@ void main() {
 
     test('loadTodos loads todos from repository and updates state', () async {
       // Arrange
-      when(() => mockTodoRepository.getTodos()).thenAnswer((_) async => [tTodo1, tTodo2]);
-      final notifier = container.read(todosProvider.notifier); // Re-read or ensure notifier is fresh
+      when(
+        () => mockTodoRepository.getTodos(),
+      ).thenAnswer((_) async => [tTodo1, tTodo2]);
+      final notifier = container.read(
+        todosProvider.notifier,
+      ); // Re-read or ensure notifier is fresh
 
       // Act
       notifier.loadTodos(); // Explicitly call loadTodos
@@ -81,14 +85,18 @@ void main() {
       // Arrange
       final notifier = container.read(todosProvider.notifier);
       notifier.state = [tTodo1, tTodo2]; // Set initial state
-      when(() => mockTodoRepository.deleteTodo(any())).thenAnswer((_) async => {});
+      when(
+        () => mockTodoRepository.deleteTodo(any()),
+      ).thenAnswer((_) async => {});
 
       // Act
       notifier.removeTodo(tTodo1);
 
       // Assert
       expect(notifier.debugState, [tTodo2]);
-      verify(() => mockTodoRepository.deleteTodo(tTodo1.id)).called(1); // Use id
+      verify(
+        () => mockTodoRepository.deleteTodo(tTodo1.id),
+      ).called(1); // Use id
     });
 
     test('toggleTodo toggles todo isDone status and calls repository', () async {
@@ -98,7 +106,9 @@ void main() {
       final tTodo = Todo(title: 'Test', isDone: false)..id = 1;
       notifier.state = [tTodo];
       // toggleTodo in repository now takes id
-      when(() => mockTodoRepository.toggleTodo(any())).thenAnswer((_) async => {});
+      when(
+        () => mockTodoRepository.updateTodo(any()),
+      ).thenAnswer((_) async => {});
 
       // The notifier's toggleTodo might need adjustment based on its new implementation
       // Assuming notifier.toggleTodo now takes the id and potentially the new state or fetches+updates
@@ -111,7 +121,6 @@ void main() {
       // If toggleTodo in notifier is `toggleTodo(int id)`:
       notifier.toggleTodo(id: tTodo.id, todo: tTodo);
 
-
       // Assert
       // The state update logic within the notifier needs to be consistent.
       // If it fetches and updates, the mock for getTodoById and updateTodo within toggleTodo would need setup.
@@ -123,7 +132,7 @@ void main() {
       // expect(notifier.debugState.first.isDone, true);
 
       // Verify the repository method is called
-      verify(() => mockTodoRepository.toggleTodo(tTodo.id)).called(1); // Use id
+      verify(() => mockTodoRepository.updateTodo(tTodo)).called(1); // Use id
     });
 
     test('updateTodo updates todo and calls repository', () async {
@@ -134,8 +143,16 @@ void main() {
 
       final tUpdatedTodo = tInitialTodo.copyWith(title: 'Updated');
       // Repository's updateTodo now takes only a Todo object
-      when(() => mockTodoRepository.updateTodo(any(that: predicate<Todo>((arg) => arg.id == tUpdatedTodo.id && arg.title == tUpdatedTodo.title))))
-          .thenAnswer((_) async => {});
+      when(
+        () => mockTodoRepository.updateTodo(
+          any(
+            that: predicate<Todo>(
+              (arg) =>
+                  arg.id == tUpdatedTodo.id && arg.title == tUpdatedTodo.title,
+            ),
+          ),
+        ),
+      ).thenAnswer((_) async => {});
 
       // Act
       // Assuming notifier.updateTodo is refactored to take the updated Todo object
@@ -145,18 +162,29 @@ void main() {
       // This depends on how the notifier updates its state.
       // If it replaces the item in the list:
       await Future.delayed(Duration.zero); // allow state update
-      expect(notifier.debugState.first.title, 'Updated');
-      expect(notifier.debugState.first.id, tInitialTodo.id);
+      expect(notifier.state.first.title, 'Updated');
+      expect(notifier.state.first.id, tInitialTodo.id);
 
-      verify(() => mockTodoRepository.updateTodo(any(that: predicate<Todo>((arg) => arg.id == tUpdatedTodo.id && arg.title == tUpdatedTodo.title))))
-          .called(1);
+      verify(
+        () => mockTodoRepository.updateTodo(
+          any(
+            that: predicate<Todo>(
+              (arg) =>
+                  arg.id == tUpdatedTodo.id && arg.title == tUpdatedTodo.title,
+            ),
+          ),
+        ),
+      ).called(1);
     });
 
-    test('loadTodos is called on initialization if state is empty (verified by initial setup)', () async {
-      // This test is essentially covered by the `initial state is empty` test
-      // and the global setUp's when(() => mockTodoRepository.getTodos()).thenAnswer
-      // We verify that getTodos() was called during initialization.
-      verify(() => mockTodoRepository.getTodos()).called(1);
-    });
+    test(
+      'loadTodos is called on initialization if state is empty (verified by initial setup)',
+      () async {
+        // This test is essentially covered by the `initial state is empty` test
+        // and the global setUp's when(() => mockTodoRepository.getTodos()).thenAnswer
+        // We verify that getTodos() was called during initialization.
+        verify(() => mockTodoRepository.getTodos()).called(1);
+      },
+    );
   });
 }
