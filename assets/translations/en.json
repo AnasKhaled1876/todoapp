@@ -14,6 +14,6 @@
     "UNDO": "UNDO",
     "Delete": "Delete",
     "No Tasks Yet": "No Tasks Yet",
-    "You don't have any tasks right now.Tap the + button to add a new task!": "You don't have any tasks right now.Tap the + button to add a new task!",
+    "empty_list_description": "You don't have any tasks right now.Tap the + button to add a new task!",
     "Add Your First Task": "Add Your First Task"
 }

@@ -19,37 +19,52 @@ class EmptyListWidget extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           // Title
-          Text(
-            'No Tasks Yet'.tr(),
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[600],
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: Text(
+              'No Tasks Yet'.tr(),
+              key: Key(context.locale.languageCode),
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[600],
+              ),
             ),
           ),
           const SizedBox(height: 8),
           // Subtitle
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 48.0),
-            child: Text(
-              'You don\'t have any tasks right now.\nTap the + button to add a new task!'.tr(),
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.grey[500], fontSize: 16),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: Text(
+                'empty_list_description'.tr(),
+                key: Key(context.locale.languageCode),
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.grey[500], fontSize: 16),
+              ),
             ),
           ),
           const SizedBox(height: 32),
           // Add Button
-          FilledButton.icon(
-            onPressed: () {
-              // Reuse your existing add todo dialog
-              showDialog(
-                context: context,
-                builder: (context) => const AddTodoDialog(),
-              );
-            },
-            icon: const Icon(Icons.add),
-            label: Text('Add Your First Task'.tr()),
-            style: FilledButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: FilledButton.icon(
+              key: Key(context.locale.languageCode),
+              onPressed: () {
+                // Reuse your existing add todo dialog
+                showDialog(
+                  context: context,
+                  builder: (context) => const AddTodoDialog(),
+                );
+              },
+              icon: const Icon(Icons.add),
+              label: Text('Add Your First Task'.tr()),
+              style: FilledButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 16,
+                ),
+              ),
             ),
           ),
         ],

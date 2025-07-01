@@ -14,6 +14,6 @@
     "UNDO": "تراجع",
     "Delete": "حذف",
     "No Tasks Yet": "لا توجد مهام بعد",
-    "You don't have any tasks right now.Tap the + button to add a new task!": "ليس لديك أي مهام حاليًا. اضغط على زر + لإضافة مهمة جديدة!",
+    "empty_list_description": "ليس لديك أي مهام حاليًا. اضغط على زر + لإضافة مهمة جديدة!",
     "Add Your First Task": "أضف أول مهمة لك"
 }

@@ -29,7 +29,6 @@ class _AddTodoDialogState extends ConsumerState<AddTodoDialog> {
             return;
           }
           notifier.addTodo(Todo(title: _controller.text));
-          notifier.loadTodos();
           Navigator.pop(context);
         },
         controller: _controller,
@@ -52,7 +51,6 @@ class _AddTodoDialogState extends ConsumerState<AddTodoDialog> {
             }
 
             notifier.addTodo(Todo(title: _controller.text));
-            notifier.loadTodos();
             Navigator.pop(context);
           },
           child: Text('Add'.tr()),
