@@ -27,6 +27,8 @@ dependencies:
   # isar: *isar_version
   # isar_flutter_libs: *isar_version
 
+  mocktail: ^1.0.3
+
 
 
 dev_dependencies:
