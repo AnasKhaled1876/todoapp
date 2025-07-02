@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:initiation_task/locator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/home/todo_list_item.dart';
 import 'package:flutter/material.dart';
 import '../widgets/dialogs/add.dart';
@@ -24,6 +26,7 @@ class HomeScreen extends ConsumerWidget {
                     ? Locale('ar')
                     : Locale('en'),
               );
+              locator<SharedPreferences>().setString('language', context.locale.languageCode);
             },
           ),
         ],

@@ -6,6 +6,7 @@ import 'package:initiation_task/domain/entities/todo.dart'; // Import Todo for I
 import 'package:initiation_task/locator.dart';
 import 'package:isar/isar.dart'; // Import Isar
 import 'package:path_provider/path_provider.dart'; // Import path_provider
+import 'package:shared_preferences/shared_preferences.dart';
 import 'presentation/screens/home.dart';
 import 'package:flutter/material.dart';
 
@@ -33,8 +34,13 @@ void main() async {
 
   Locale startLocale = Locale(Platform.localeName.split('_').first);
 
-  if (!supportedLocales.contains(startLocale)) {
-    startLocale = Locale('en');
+  final language = locator<SharedPreferences>().getString('language');
+  if (language != null) {
+    startLocale = Locale(language);
+  } else {
+    if (!supportedLocales.contains(startLocale)) {
+      startLocale = Locale('en');
+    }
   }
 
   runApp(
